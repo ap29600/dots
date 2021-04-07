@@ -1,0 +1,65 @@
+bar:
+  height: 30
+  location: bottom
+  font: "SF Pro Display:size=15"
+  background: 282828ff
+  foreground: ebdbb2ff
+  left: 
+    - river: 
+        content:
+          map:
+            tag: visible
+            values:
+              true: 
+                string:
+                  foreground: a9b665ff
+                  deco: { underline: {size: 2, color: a9b665ff}}
+                  margin: 5
+                  text: "{id}"
+              false: 
+                map:
+                  tag: occupied
+                  values:
+                    false: {empty: {}}
+                    true: { string: { margin: 5, text: "{id}" } }
+  center:
+    - river:
+        title: {string: {text: "{title}"}}
+        content: 
+          { empty: {} }
+  right:
+    - alsa:
+        card: hw:Generic_1
+        mixer: Master
+        content:
+          string:
+            text: " {volume}"
+            margin: 10
+    - battery:
+        name: BAT0
+        poll-interval: 30
+        content: 
+          map:
+            tag: state
+            default:
+              string:
+                deco: { background: { color: d65d0eff} } 
+                text: " {capacity}% ({estimate})"
+                margin: 10
+            values: 
+              charging: 
+                string: 
+                  deco: { background: { color: d65d0eff} } 
+                  text: ""
+                  margin: 10
+              full: 
+                string: 
+                  deco: { background: { color: d65d0eff} } 
+                  text: " full"
+                  margin: 10
+    - clock:
+        content:
+          - string:
+              deco: { background: { color: 427b58ff} } 
+              text: "  {date}   {time}"
+              margin: 10

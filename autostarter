@@ -1,0 +1,6 @@
+#!/bin/sh
+pgrep foot || nohup foot --server &
+pgrep mako || nohup mako &
+pgrep xdg-desktop-portal || nohup /usr/lib/xdg-desktop-portal -r & /usr/lib/xdg-desktop-portal-wlr &
+pgrep swaybg || nohup swaybg -i ~/Pictures/wal/RedMount.png &
+pgrep yambar || nohup yambar & 
