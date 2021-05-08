@@ -1,9 +1,9 @@
 default:
 	echo $(CURDIR)
 
-conf = sxhkd river sway mako starship.toml
+conf = sxhkd river sway mako starship.toml picom.conf fontconfig foot
 
-scripts = autostarter powerprofile
+scripts = autostarter powerprofile swayidle-manager
 
 linkscript-%: %
 	ln -sf $(CURDIR)/$< ~/.local/bin/$<

@@ -63,7 +63,7 @@ bar:
                  deco: {underline: {size: 2, color: ffffffff}}
     
     - script:
-        path: "/home/andrea/scripts/swayidle-manager"
+        path: "/home/andrea/.local/bin/swayidle-manager"
         args: []
         content: 
           map:

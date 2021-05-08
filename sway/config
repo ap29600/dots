@@ -3,7 +3,6 @@
 set {
   $mod Mod4
  
-
   $left h
   $down j
   $up k
@@ -13,11 +12,8 @@ set {
   $menu rofi -show drun -theme sidebar
 }
 
-input * {
-  xkb_layout us,it
-  xkb_options grp:switch
-  dwt enabled
-}
+
+include ~/.config/swayinput
 
 # output * { }
 
@@ -42,8 +38,8 @@ floating_modifier $mod normal
 
 bindsym --release {
   # XF86MonBrightnessDown exec notify-send "brightness changed"
-  XF86MonBrightnessDown exec 'brightness=`cat /sys/class/backlight/amdgpu_bl0/brightness`; echo $(($brightness - 10 )) > /sys/class/backlight/amdgpu_bl0/brightness'
-  XF86MonBrightnessUp   exec 'brightness=`cat /sys/class/backlight/amdgpu_bl0/brightness`; echo $(($brightness + 10 )) > /sys/class/backlight/amdgpu_bl0/brightness'
+  XF86MonBrightnessDown exec 'xbacklight -dec 5'
+  XF86MonBrightnessUp   exec 'xbacklight -inc 5'
   XF86AudioRaiseVolume  exec pamixer -i 5
   XF86AudioLowerVolume  exec pamixer -d 5 
   XF86AudioMute         exec pamixer -t 

@@ -1,0 +1,151 @@
+bar:
+  height: 30
+  location: top
+  font: "monospace:size=15"
+  background: 282828ff
+  foreground: ebdbb2ff
+  spacing: 2
+  left: 
+    - river:
+        content:
+          map:
+            deco: { background: { color: 3c3836ff} }
+            tag: visible
+            values:
+              true: 
+                string:
+                  deco: { underline: {size: 3, color: a9b665ff}}
+                  margin: 10
+                  text: "{id}"
+              false: 
+                map:
+                  tag: occupied
+                  values:
+                    false: {empty: {}}
+                    true: 
+                      string: 
+                        margin: 10
+                        text: "{id}"
+  center:
+    - river:
+        title: {string: {text: "{title}", max: 100}}
+        content: 
+          { empty: {} }
+
+  right:
+    - removables:
+       content:
+         map:
+           deco: { background: { color: 3c3836ff} }
+           margin: 10
+           tag: mounted
+           values:
+             false:
+               string:
+                 on-click: udisksctl mount -b {device}
+                 text: "{label}"
+             true:
+               string:
+                 on-click: udisksctl unmount -b {device}
+                 text: "{label}"
+                 deco: {underline: {size: 2, color: ffffffff}}
+    
+    - script:
+        path: "/home/andrea/.local/bin/swayidle-manager"
+        args: []
+        content: 
+          map:
+            tag: enabled
+            values:
+              false:
+                string:
+                  deco: { background: { color: 3c3836ff} }
+                  text: ""
+                  margin: 10
+                  on-click: "pkill -SIGUSR1 swayidle-manage"
+              true:
+                string:
+                  deco: { background: { color: 3c3836ff} }
+                  text: ""
+                  margin: 10
+                  on-click: "pkill -SIGUSR1 swayidle-manage"
+    - alsa:
+        card: hw:Generic_1
+        mixer: Master
+        content:
+          map:
+            on-click: "pamixer -t"
+            tag: muted
+            deco: { background: { color: 3c3836ff} }
+            margin: 10
+            values:
+              false:
+                - ramp:
+                    tag: percent
+                    items:
+                      - string: { text: " " }
+                      - string: { text: " " }
+                      - string: { text: " " }
+                      - string: { text: " " }
+                      - string: { text: " " }
+                - string:
+                    text: "{percent}"
+              true: { string: { text: " ({percent})" } } 
+    - network:
+        name: wlp1s0
+        content:
+          map:
+            tag: state
+            default: {empty: {}}
+            values:
+              down:
+                string:
+                  deco: { background: { color: 3c3836ff} }
+                  text: ""
+                  margin: 10
+              up:
+                string:
+                  deco: { background: { color:  3c3836ff} }
+                  text: ""
+                  margin: 10
+    - battery:
+        name: BAT0
+        poll-interval: 30
+        content: 
+          map:
+            tag: state
+            deco: { background: { color: 3c3836ff}} 
+            margin: 10
+            default:
+              - ramp:
+                  tag: capacity
+                  items:
+                    - string: { text: " " }
+                    - string: { text: " " }
+                    - string: { text: " " }
+                    - string: { text: " " }
+                    - string: { text: " " }
+              - string: { text: "{capacity}% ({estimate})"}
+            values: 
+              charging: 
+                string: 
+                  deco: { background: { color: 3c3836ff} } 
+                  text: " {capacity}"
+              full: 
+                string: 
+                  deco: { background: { color: 3c3836ff} } 
+                  text: " full"
+    - clock:
+        content:
+          - string:
+              deco: { background: { color: 3c3836ff} } 
+              text: "  {date}   {time}"
+              margin: 10
+    - label:
+        content:
+          string:
+            foreground: 282828ff
+            margin: 10
+            deco: { background: { color: b57614ff} } 
+            text: ""
+            on-click: "scripts/powermenu"

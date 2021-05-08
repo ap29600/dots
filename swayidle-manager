@@ -1,0 +1,32 @@
+#!/bin/sh
+
+swayidlecmd="swayidle timeout 300 'swaylock' timeout 600 'systemctl suspend' before-sleep 'swaylock'"
+swaylockcmd="swayidle before-sleep 'swaylock'"
+
+toggle_swayidle () {
+  killall swayidle 
+  case $idle_lock in
+    "true")
+      $swaylockcmd &
+      idle_lock="false" 
+      echo -e "enabled|bool|false\n" 
+      ;;
+    "false")
+      $swayidlecmd &
+      idle_lock="true"
+      echo -e "enabled|bool|true\n" 
+      ;;
+  esac
+}
+
+idle_lock="false"
+
+toggle_swayidle
+
+while true
+do
+  # wait for a signal
+  trap toggle_swayidle USR1
+  sleep 10 & 
+  wait
+done

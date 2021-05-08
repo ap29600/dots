@@ -3,11 +3,11 @@
 case $1 in
   "river")
     SPAWN_CMD='riverctl spawn'
-    YAMBAR_CONFIG='~/.config/yambar/config.yml'
+    YAMBAR_CONFIG='~/.config/river/yambar.yml'
     ;;
   "sway")
     SPAWN_CMD='swaymsg exec'
-    YAMBAR_CONFIG='~/.config/sway/yambar.yaml'
+    YAMBAR_CONFIG='~/.config/sway/yambar.yml'
     ;;
 esac
 
