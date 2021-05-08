@@ -15,7 +15,7 @@ set {
 
 include ~/.config/swayinput
 
-# output * { }
+output * { scale 2 }
 
 seat seat0 {
   xcursor_theme xcursor-breeze-neutral 12
