@@ -1,3 +1,27 @@
+definitions:
+  - default: &default
+      map:
+        deco: { background: { color: 3c3836ff} }
+        tag: state
+        values:
+          focused: 
+            string:
+              deco: { underline: {size: 3, color: a9b665ff}}
+              margin: 10
+              text: "{name}"
+          unfocused: 
+            string: 
+              margin: 10
+              text: "{name}"
+          urgent: 
+            string: 
+              deco: { background: { color: 3c3836ff} }
+              margin: 10
+              text: "{id}"
+          invisible:
+            string: 
+              margin: 10
+              text: "{name}"
 bar:
   height: 30
   location: top
@@ -6,31 +30,19 @@ bar:
   foreground: ebdbb2ff
   spacing: 2
   left: 
-    - river:
+    - i3:
+        sort: ascending
         content:
-          map:
-            deco: { background: { color: 3c3836ff} }
-            tag: visible
-            values:
-              true: 
-                string:
-                  deco: { underline: {size: 3, color: a9b665ff}}
-                  margin: 10
-                  text: "{id}"
-              false: 
-                map:
-                  tag: occupied
-                  values:
-                    false: {empty: {}}
-                    true: 
-                      string: 
-                        margin: 10
-                        text: "{id}"
-  center:
-    - river:
-        title: {string: {text: "{title}", max: 100}}
-        content: 
-          { empty: {} }
+          1   : *default
+          2   : *default
+          3   : *default
+          4   : *default
+          5   : *default
+          6   : *default
+          7   : *default
+          8   : *default
+          9   : *default
+          10  : *default
 
   right:
     - removables:
@@ -136,6 +148,7 @@ bar:
                   deco: { background: { color: 3c3836ff} } 
                   text: " full"
     - clock:
+        date-format: "%d/%m/%Y"
         content:
           - string:
               deco: { background: { color: 3c3836ff} } 

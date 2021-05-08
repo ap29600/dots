@@ -10,7 +10,7 @@
 # Use the "logo" key as the primary modifier
 mod="Mod4"
 riverctl map normal $mod Return spawn "footclient"
-riverctl map normal $mod P      spawn "rofi -show drun"
+riverctl map normal $mod P      spawn "rofi -show drun -theme /home/andrea/sources/gruvbox-rofi/gruvbox-dark.rasi"
 riverctl map normal $mod+Shift C close
 riverctl map normal $mod+Shift Q exit
 
@@ -97,9 +97,14 @@ do
     riverctl map $mode None XF86AudioNext  spawn playerctl next
 
     # Control screen backlight brighness with light (https://github.com/haikarainen/light)
-    riverctl map $mode None XF86MonBrightnessUp   spawn light -A 5
-    riverctl map $mode None XF86MonBrightnessDown spawn light -U 5
+    riverctl map $mode None XF86MonBrightnessUp   spawn "xbacklight -inc 5"
+    riverctl map $mode None XF86MonBrightnessDown spawn "xbacklight -dec 5"
 done
+
+
+riverctl border-color-focused "#a9b665"
+riverctl border-color-unfocused "#282828"
+
 
 # Set repeat rate
 riverctl set-repeat 30 300
@@ -110,7 +115,8 @@ riverctl outer-padding 2
 riverctl view-padding 3
 
 # Set app-ids of views which should float
-riverctl float-filter-add "rofi"
+riverctl float-filter-add "rofi - drun"
+riverctl float-filter-add "yad"
 riverctl float-filter-add "float"
 riverctl float-filter-add "popup"
 
@@ -122,4 +128,4 @@ riverctl csd-filter-add "gedit"
 
 # keep alive a few processes
 
-pgrep autostarter || nohup ~/scripts/autostarter &
+pgrep autostarter || ~/scripts/autostarter &

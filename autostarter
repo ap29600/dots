@@ -1,6 +1,25 @@
 #!/bin/sh
-pgrep foot || nohup foot --server &
-pgrep mako || nohup mako &
-pgrep xdg-desktop-portal || nohup /usr/lib/xdg-desktop-portal -r & /usr/lib/xdg-desktop-portal-wlr &
-pgrep swaybg || nohup swaybg -i ~/Pictures/wal/RedMount.png &
-pgrep yambar || nohup yambar & 
+
+case $1 in
+  "river")
+    SPAWN_CMD='riverctl spawn'
+    YAMBAR_CONFIG='~/.config/yambar/config.yml'
+    ;;
+  "sway")
+    SPAWN_CMD='swaymsg exec'
+    YAMBAR_CONFIG='~/.config/sway/yambar.yaml'
+    ;;
+esac
+
+
+~/scripts/loadgsettings
+
+
+pgrep -x redshift || $SPAWN_CMD "redshift -l 45:9"
+pgrep -f 'foot --server' || $SPAWN_CMD "foot --server"
+pgrep -x mako || $SPAWN_CMD "mako"
+pgrep -x xdg-desktop-portal || $SPAWN_CMD "/usr/lib/xdg-desktop-portal -r"
+pgrep -x xdg-desktop-portal-wlr || $SPAWN_CMD "/usr/lib/xdg-desktop-portal-wlr" 
+
+killall swaybg; $SPAWN_CMD 'swaybg -i ~/Pictures/wal/green-aesthetic-wallpaper-20.jpg'
+killall yambar; $SPAWN_CMD "yambar -c $YAMBAR_CONFIG"

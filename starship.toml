@@ -1,0 +1,15 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+# Replaces the default "❯" symbol in the prompt with "➜"
+[character]                             # The name of the module we are configuring is "character"
+
+format = "[-> $symbol ](bold green)"
+
+success_symbol = "[](bold red)"      # The "success_symbol" segment es being set to "➜" with the color "bold green"
+vicmd_symbol = "[](bold yellow)"
+error_symbol = "[](bold red)"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true

@@ -1,0 +1,17 @@
+# audio
+XF86Audio{Raise,Lower}Volume
+    pamixer -{i,d} 2
+XF86AudioMute
+    pamixer -t
+
+brightness
+XF86MonBrightness{Up,Down}
+    xbacklight -{in,de}c 5
+
+XF86Search
+    /home/andrea/scripts/flipscreen.sh
+XF86AudioPlay
+    playerctl play-pause
+
+super + r
+    pkill -SIGUSR1 sxhkd; notify-send "reloaded config"

@@ -1,0 +1,153 @@
+# sway config file
+
+set {
+  $mod Mod4
+ 
+
+  $left h
+  $down j
+  $up k
+  $right l
+ 
+  $term footclient 
+  $menu rofi -show drun -theme sidebar
+}
+
+input * {
+  xkb_layout us,it
+  xkb_options grp:switch
+  dwt enabled
+}
+
+# output * { }
+
+seat seat0 {
+  xcursor_theme xcursor-breeze-neutral 12
+  keyboard_grouping none
+}
+
+gaps inner 5
+smart_gaps on
+smart_borders on
+default_border pixel 3
+
+for_window [app_id="firefox"] inhibit_idle fullscreen
+for_window [class="qutebrowser"] inhibit_idle fullscreen
+assign [class="Microsoft Teams.*"] 1
+assign [app_id="firefox"] 3
+
+### Key bindings
+
+floating_modifier $mod normal
+
+bindsym --release {
+  # XF86MonBrightnessDown exec notify-send "brightness changed"
+  XF86MonBrightnessDown exec 'brightness=`cat /sys/class/backlight/amdgpu_bl0/brightness`; echo $(($brightness - 10 )) > /sys/class/backlight/amdgpu_bl0/brightness'
+  XF86MonBrightnessUp   exec 'brightness=`cat /sys/class/backlight/amdgpu_bl0/brightness`; echo $(($brightness + 10 )) > /sys/class/backlight/amdgpu_bl0/brightness'
+  XF86AudioRaiseVolume  exec pamixer -i 5
+  XF86AudioLowerVolume  exec pamixer -d 5 
+  XF86AudioMute         exec pamixer -t 
+}
+
+bindsym {
+  $mod+Return   exec $term
+  $mod+p        exec $menu
+  $mod+Shift+c  kill
+  $mod+Shift+r reload
+  $mod+Shift+q exec swaynag -t warning -m \
+     'You pressed the exit shortcut. Do you really want to exit sway? \
+     This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+}
+
+bindsym {
+  $mod+$left focus left
+  $mod+$down focus down
+  $mod+$up focus up
+  $mod+$right focus right
+
+  $mod+Shift+$left move left
+  $mod+Shift+$down move down
+  $mod+Shift+$up move up
+  $mod+Shift+$right move right
+
+  $mod+f            fullscreen
+  $mod+Shift+space  floating toggle
+  $mod+space        focus mode_toggle
+  $mod+a            focus parent
+
+  $mod+Shift+minus move scratchpad
+  $mod+minus scratchpad show
+}
+
+#
+# Resizing containers:
+#
+bindsym $mod+r mode "resize"
+mode "resize" {
+  bindsym $left resize shrink width 10px
+  bindsym $down resize grow height 10px
+  bindsym $up resize shrink height 10px
+  bindsym $right resize grow width 10px
+
+  # Return to default mode
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+#
+# Workspaces:
+#
+set {
+  $ws1 number 1
+  $ws2 number 2
+  $ws3 number 3
+  $ws4 number 4
+  $ws5 number 5
+  $ws6 number 6
+  $ws7 number 7
+  $ws8 number 8
+  $ws9 number 9
+  $ws10 number 10
+}
+# Switch to workspace
+
+bindsym {
+  $mod+1 workspace $ws1
+  $mod+2 workspace $ws2
+  $mod+3 workspace $ws3
+  $mod+4 workspace $ws4
+  $mod+5 workspace $ws5
+  $mod+6 workspace $ws6
+  $mod+7 workspace $ws7
+  $mod+8 workspace $ws8
+  $mod+9 workspace $ws9
+  $mod+0 workspace $ws10
+} 
+# Move focused container to workspace
+bindsym {
+  $mod+Shift+1 move container to workspace $ws1
+  $mod+Shift+2 move container to workspace $ws2
+  $mod+Shift+3 move container to workspace $ws3
+  $mod+Shift+4 move container to workspace $ws4
+  $mod+Shift+5 move container to workspace $ws5
+  $mod+Shift+6 move container to workspace $ws6
+  $mod+Shift+7 move container to workspace $ws7
+  $mod+Shift+8 move container to workspace $ws8
+  $mod+Shift+9 move container to workspace $ws9
+  $mod+Shift+0 move container to workspace $ws10
+}
+
+#
+# Layout stuff:
+#
+bindsym {
+  $mod+b splith
+  $mod+v splitv
+ 
+  $mod+s layout stacking
+  $mod+w layout tabbed
+  $mod+e layout toggle split
+}
+
+exec "yambar -c ~/.config/sway/yambar.yaml"
+exec_always "~/.local/bin/autostarter sway"
